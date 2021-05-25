@@ -1,6 +1,7 @@
 import pygame # importing pygame module
 import time
-import random 
+import random
+import math
 
 x = pygame.init()
 
@@ -19,13 +20,9 @@ gameWindow = pygame.display.set_mode(( screen_width , screen_height ))
 
 font = pygame.font.SysFont(None,55)
 
-
-
 def textScreen(text,color,x,y):
     screen_text = font.render(text,True,color)
     gameWindow.blit(screen_text, [x,y])
-
-
 
 def plot_block(gameWindow , color , block_x , block_y , block_size_y , block_size_x):
     pygame.draw.rect(gameWindow , color , [ block_x , block_y , block_size_y , block_size_x ])
@@ -57,7 +54,6 @@ def gameloop():
     gameWindow.fill(white)
     textScreen(" Game Over !" , red , 150 , 300 )
 
-
     # This is the main gaming loop
     while not exit_game :
 
@@ -76,19 +72,15 @@ def gameloop():
         else:
 
             for event in pygame.event.get():
-
                 if event.type==pygame.QUIT:
                     exit_game = True
-
-
-                
+           
                 if event.type == pygame.KEYDOWN:
 
                     if event.key == pygame.K_w:
                         if block_y > 0 :
                             block_y -= 75
                         
-
                     if event.key == pygame.K_a:
                         if block_x > 0 :
                             block_x -= 20
@@ -125,11 +117,17 @@ def gameloop():
             secondObject_y += velocity_y + 3
             thirdObject_y += velocity_y + 2
 
-            if block_y == firstObject_y or block_y == secondObject_y or block_y == thirdObject_y :
+            if abs(block_y - firstObject_y)<30 and abs(block_x - firstObject_x) :
+                game_over = True
+               
+            elif abs(block_y - secondObject_y)<30 and abs(block_x - secondObject_x) :
                 game_over = True
                 
-            elif block_x == firstObject_x or block_x == secondObject_x or block_x == thirdObject_x :
+            elif abs(block_y - thirdObject_y)<30 and abs(block_x - thirdObject_x) :
                 game_over = True
+                
+            else:
+                pass
 
             plot_block(gameWindow, red , firstObject_x ,firstObject_y , 50 , 100)
             plot_block(gameWindow, white , secondObject_x ,secondObject_y , 50 , 100)
@@ -140,17 +138,12 @@ def gameloop():
         textScreen("Score : " + str(count/30) , red , 5 , 5)
         
         # Conditions when player will be out
-
-        
-
         pygame.display.update()
         clock.tick(25)
-
         time.sleep(0)
 
     pygame.quit()
     quit()
-
 
 gameloop()
 
