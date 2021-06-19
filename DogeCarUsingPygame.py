@@ -117,13 +117,13 @@ def gameloop():
             secondObject_y += velocity_y + 3
             thirdObject_y += velocity_y + 2
 
-            if abs(block_y - firstObject_y)<30 and abs(block_x - firstObject_x) :
+            if abs(block_y - firstObject_y)<30 and abs(block_x - firstObject_x) < 30:
                 game_over = True
                
-            elif abs(block_y - secondObject_y)<30 and abs(block_x - secondObject_x) :
+            elif abs(block_y - secondObject_y)<30 and abs(block_x - secondObject_x) < 30 :
                 game_over = True
                 
-            elif abs(block_y - thirdObject_y)<30 and abs(block_x - thirdObject_x) :
+            elif abs(block_y - thirdObject_y)<30 and abs(block_x - thirdObject_x) < 30 :
                 game_over = True
                 
             else:
